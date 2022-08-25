@@ -10,6 +10,4 @@ router.delete('/:id', passport.authenticate('jwt', { session: false }), controll
 router.post('/', passport.authenticate('jwt', { session: false }), upload.single('image'), controller.creat)
 router.patch('/:id', passport.authenticate('jwt', { session: false }), upload.single('image'), controller.update)
 
-
-
 module.exports = router

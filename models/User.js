@@ -1,17 +1,24 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const jwt = require("jsonwebtoken");
+const Joi = require("joi");
 
 const userSchema = new Schema({
-
-    email: {
+    name: {
         type: String,
         required: true,
-        unique: true
     },
     password: {
-        type: Number,
-        required: true
-    }
+        type: String,
+        required: true,
+    },
+});
 
-})
-module.exports = mongoose.model('users', userSchema)
+const validate = (user) => {
+    const schema = Joi.object({
+        name: Joi.string().required(),
+        password: Joi.string().required(),
+    });
+    return schema.validate(user);
+};
+

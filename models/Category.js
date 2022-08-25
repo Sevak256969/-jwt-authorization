@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Joi = require('joi')
 const Schema = mongoose.Schema
 
 const categorySchema = new Schema({
@@ -14,7 +15,6 @@ const categorySchema = new Schema({
     user: {
         ref: 'users',
         type: Schema.Types.ObjectId
-
     }
 
 })

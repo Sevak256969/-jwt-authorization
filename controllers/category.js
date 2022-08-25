@@ -10,6 +10,7 @@ module.exports.getAll = async function (req, res) {
         errorHandler(res, e)
     }
 }
+
 module.exports.getById = async function (req, res) {
     try {
         const category = await Category.findById(req.params.id)
@@ -19,7 +20,6 @@ module.exports.getById = async function (req, res) {
         errorHandler(res, e)
     }
 }
-
 
 module.exports.remove = async function (req, res) {
     try {
@@ -33,7 +33,8 @@ module.exports.remove = async function (req, res) {
         errorHandler(res, e)
     }
 }
-module.exports.creat = function (req, res) {
+
+module.exports.creat = async function (req, res) {
 
     const category = new Category({
         name: req.body.name,
@@ -48,6 +49,7 @@ module.exports.creat = function (req, res) {
         errorHandler(res, e)
     }
 }
+
 module.exports.update = async function (req, res) {
     const updated = {
         name: req.body.name
@@ -66,5 +68,4 @@ module.exports.update = async function (req, res) {
     } catch (e) {
         errorHandler(res, e)
     }
-
 }
