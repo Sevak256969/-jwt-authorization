@@ -22,3 +22,4 @@ const validate = (user) => {
     return schema.validate(user);
 };
 
+module.exports = mongoose.model('users', userSchema)
