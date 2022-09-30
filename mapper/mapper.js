@@ -2,7 +2,7 @@ const mapper = require('object-mapper')
 const User = require('../models/User')
 
 
-const mapping = mapper((map) => ({
+module.exports.mapping =   mapper((map) => ({
 
     'email': map('email.type').value,
     'email': map('email.required').value,

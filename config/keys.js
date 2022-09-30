@@ -1,4 +1,4 @@
 module.exports = {
-    mongoURI: "mongodb://localhost:27017",
+    mongoURI: "mongodb://127.0.0.1:27017/jwt",
     jwt: 'dev-jwt'
 }

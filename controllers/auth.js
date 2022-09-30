@@ -2,8 +2,9 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const keys = require('../config/keys')
 const User = require('../models/User')
-const errorHandler = require('../utils/errorHandler')
+const errorHandler = require('../utils/errorFunction')
 const Joi = require('joi')
+// const Joi = require('@hapi/joi');
 
 
 module.exports.login = async function (req, res) {
@@ -20,23 +21,23 @@ module.exports.login = async function (req, res) {
             })
         } else {
             res.status(401).json({
-                message: 'paroli ne sovpadayut porobyvayte snova '
+                message: 'Пароли не совпадают попробуйте снова!'
             })
         }
     } else {
         res.status(404).json({
-            message: 'polzovatel s takim email ne nayden'
+            message: 'Пользователь с таким емейл не найден!'
         })
     }
 }
 
+// email password
 module.exports.register = async function (req, res) {
-    // email password
     const candidate = await User.findOne({ email: req.body.email })
 
     if (candidate) {
         res.status(409).json({
-            message: 'takoy email uje zanyat.Poprobuyte drugoy'
+            message: 'Такой емейл уже занят.Попробуйте другой.'
         })
     } else {
         const salt = bcrypt.genSaltSync(10)
@@ -52,4 +53,24 @@ module.exports.register = async function (req, res) {
             errorHandler(res, e)
         }
     }
-}  
+}
+
+module.exports.getUsers = async (req, res, next) => {
+
+    try {
+        const allUsers = await User.find();
+        if (allUsers) {
+            res.status(201);
+            return res.json(
+            errorFunction(false, "Sending all users", allUsers)
+            );
+        } else {
+            res.status(403);
+            return res.json(errorFunction(true, "Error getting Users"));
+        }
+    } catch (error) {
+        res.status(400);
+        return res.json(errorFunction(true, "Error getting user"));
+    }
+};
+  

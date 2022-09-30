@@ -1,6 +1,9 @@
 const Category = require('../models/Category')
 const Position = require('../models/Position')
-const errorHandler = require('../utils/errorHandler')
+// const errorHandler = require('../utils/errorHandler')
+const errorHandler = require('../utils/errorFunction')
+const mapping = require('../mapper/mapper')
+
 
 module.exports.getAll = async function (req, res) {
     try {
@@ -33,7 +36,7 @@ module.exports.remove = async function (req, res) {
         errorHandler(res, e)
     }
 }
-
+console.log(mapping);
 module.exports.creat = async function (req, res) {
 
     const category = new Category({

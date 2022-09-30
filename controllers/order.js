@@ -1,9 +1,16 @@
 const e = require('express')
 const Order = require('../models/Order')
-const errorHandler = require('../utils/errorHandler')
+// const errorHandler = require('../utils/errorHandler')
+const errorHandler = require('../utils/errorFunction')
+
 
 // (get) localhost:5000/api/order?offset=2&limit=5
 module.exports.getAll = async function (req, res) {
+
+    // const filter = {id: req.query.id, end: req.query.end, ...}
+
+    // await repository.getAll(filter);
+
     const query = {
         user: req.user.id
     }
