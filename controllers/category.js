@@ -36,7 +36,6 @@ module.exports.remove = async function (req, res) {
         errorHandler(res, e)
     }
 }
-console.log(mapping);
 module.exports.creat = async function (req, res) {
 
     const category = new Category({
