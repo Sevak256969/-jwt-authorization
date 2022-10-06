@@ -3,9 +3,6 @@ const jwt = require('jsonwebtoken')
 const keys = require('../config/keys')
 const User = require('../models/User')
 const errorHandler = require('../utils/errorFunction')
-const Joi = require('joi')
-// const Joi = require('@hapi/joi');
-
 
 module.exports.login = async function (req, res) {
     const candidate = await User.findOne({ email: req.body.email })
@@ -55,22 +52,4 @@ module.exports.register = async function (req, res) {
     }
 }
 
-module.exports.getUsers = async (req, res, next) => {
-
-    try {
-        const allUsers = await User.find();
-        if (allUsers) {
-            res.status(201);
-            return res.json(
-            errorFunction(false, "Sending all users", allUsers)
-            );
-        } else {
-            res.status(403);
-            return res.json(errorFunction(true, "Error getting Users"));
-        }
-    } catch (error) {
-        res.status(400);
-        return res.json(errorFunction(true, "Error getting user"));
-    }
-};
   
