@@ -1,27 +1,21 @@
-const joi = require("joi");
-const errorFunction = require("../utils/errorFunction");
+const { celebrate, Joi, errors, Segments } = require('celebrate');
 
-const validation = joi.object({
-	email: joi.string().email().trim(true).required(),
-	password: joi.string().min(8).trim(true).required(),
-});
-
-const userValidation = async (req, res, next) => {
-	const payload = {
-		email: req.body.email,
-		password: req.body.password,
-
-	};
-
-	const { error } = validation.validate(payload);
-	if (error) {
-		res.status(406);
-		return res.json(
-			errorFunction(true, `Error in User Data : ${error.message}`)
-		);
-	} else {
-		next();
-	}
-};
-
-module.exports = userValidation;
+const validation =  celebrate({
+	[Segments.BODY]: Joi.object({
+      email: Joi.string().required(),
+	  password: Joi.string()
+        .pattern(/^[a-zA-Z0-9]{3,30}$/)
+        .min(8)
+		.required(),
+      repeat_password: Joi.ref("password"),
+	}),
+	// [Segments.QUERY]: {
+	//   token: Joi.string().token().required()
+	// }
+  } ,(req, res) => {
+	// At this point, req.body has been validated and 
+	// req.body.role is equal to req.body.role if provided in the POST or set to 'admin' by joi
+    res.status(201).send(req.body);
+  });
+  
+module.exports = validation;
